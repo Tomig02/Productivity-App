@@ -1,0 +1,58 @@
+
+
+$btn-color: #FEBF32;
+$btn-font-size: 1rem;
+$btn-icon-size: 2rem;
+
+button{
+    //sizing
+    padding: 0.3rem 1rem;
+    
+    //styling
+    border: none;
+    border-radius: 0.3em;
+    outline: none;
+    background: $btn-color;
+
+    //font
+    font-family: inherit;
+    font-size: $btn-font-size;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    //align
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    //icon
+    img{
+        margin-right: 1rem;
+        width: $btn-icon-size;
+        height: $btn-icon-size;
+        border: none;
+        outline: none;
+    }
+
+    //animation
+    transition: all 0.1s ease;
+    &:hover{
+        transform: translateY(-0.15rem);
+        box-shadow: 0 0.15rem 0 #ad7600;
+    }
+    &:active{
+        transform: translateY(0);
+        box-shadow: none;
+    }   
+}
+
+.icon-button{
+    border-radius: 50%;
+    width: fit-content;
+    height: fit-content;
+
+    img{
+        margin: 0;
+        border-radius: 50%;
+    }
+}
