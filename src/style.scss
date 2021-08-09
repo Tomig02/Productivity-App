@@ -9,7 +9,9 @@ $main-bg: #09080D;
     padding: 0;    
 }
 body{
+    min-height: 100vh;
     background: $main-bg;
     font-family: 'Roboto', sans-serif;
 }
-@import './components/sidebar/sidebar', './components/button/button';
+
+@import './components/sidebar/sidebar', './components/button/button', './views/login/loginview';

@@ -1,0 +1,51 @@
+
+$login-bg: #121117;
+$border-color: #FEBF32;
+.App{
+    min-height: 100vh;
+}
+form{
+    width: 30rem;
+    max-width: 90%;
+    padding: 1rem;
+    margin: auto;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+
+    background: $login-bg;
+    border: 1px solid $border-color;
+    border-radius: 0.2rem;
+
+    input, h2, label{
+        letter-spacing: 0.08rem;
+    }
+
+    h2, label{
+        color: rgb(245, 245, 245);
+    }
+    h2{
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    input{
+        width: 100%;
+        margin: 1rem auto;
+        margin-top: 0;
+        padding: 0.5rem 1rem;
+        
+        background: none;
+        color: rgb(196, 196, 196);
+        outline: none;
+        border: 1px solid $border-color;
+
+        font-size: 1rem;
+        display: block;
+    }
+    button{
+        margin: auto;
+    }
+}

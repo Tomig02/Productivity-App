@@ -14,7 +14,7 @@ export default ( props ) => {
     }
 
     return(
-        <button className={btnText? "button": 'icon-button'} action={btnAction} disabled={working}>
+        <button className={btnText? "button": 'icon-button'} onClick={btnAction} disabled={working}>
             <img src={imgSrc? imgSrc: placeholder} alt=""/>
             {btnText}
         </button>
