@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 
 export default ( props ) => {
-    const {imgSrc = null, btnText = "", action = () => {}} = props;
+    const {imgSrc = null, btnText = "", action = () => {}, addClass = ""} = props;
     const placeholder = process.env.REACT_APP_PLACEHOLDER;
-
-    console.log(placeholder)
     
     const [working, setWorking] = useState(false);
     const btnAction = () => {
@@ -13,8 +11,9 @@ export default ( props ) => {
         setWorking(false);
     }
 
+    const classString = `${addClass} ${btnText? "button": 'icon-button'}`
     return(
-        <button className={btnText? "button": 'icon-button'} onClick={btnAction} disabled={working}>
+        <button className={classString} onClick={btnAction} disabled={working}>
             <img src={imgSrc? imgSrc: placeholder} alt=""/>
             {btnText}
         </button>

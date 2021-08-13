@@ -1,20 +1,17 @@
 
-$login-bg: #121117;
-$border-color: #FEBF32;
-.App{
+.login-container{
     min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-form{
-    width: 30rem;
+.login-panel{
+    width: 35rem;
     max-width: 90%;
     padding: 1rem;
-    margin: auto;
-
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
+    margin-bottom: 1.5rem;
 
     background: $login-bg;
     border: 1px solid $border-color;
@@ -31,21 +28,29 @@ form{
         margin-bottom: 1.5rem;
         text-align: center;
     }
-    input{
-        width: 100%;
-        margin: 1rem auto;
-        margin-top: 0;
-        padding: 0.5rem 1rem;
-        
-        background: none;
-        color: rgb(196, 196, 196);
-        outline: none;
-        border: 1px solid $border-color;
-
-        font-size: 1rem;
-        display: block;
-    }
     button{
         margin: auto;
     }
+
+    p{
+        color: white;
+    }
+    small{
+        display: block;
+        color: $error-msg;
+        margin: 0.7rem;
+        text-align: center;
+    }
+    .row{
+        padding: 0.7rem 1rem;
+        button{
+            margin: 0;
+        }
+    }
+}
+
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

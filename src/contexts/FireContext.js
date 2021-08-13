@@ -32,27 +32,43 @@ export const FireProvider = ({children}) => {
     *  ---------------------------------------------------------------------
     */
 
-    const doLogin = (email, password) => {
-        app.auth().signInWithEmailAndPassword(email, password)
-            .then( result => {
-                console.log(result);
-            })
-            .catch( error => {
-                console.log(`ERROR: ${error.message}`);
-            });
+    const changePassword = async (email) => {
+        try{
+            await app.auth().sendPasswordResetEmail(email)
+        }
+        catch(error){ 
+            throw Error(error.message);
+        }
     }
 
-    const signOut = () => {
-        app.auth().signOut()
-            .then(() => {
-                console.log("out");
-                
-                // Sign-out successful.
-            })
-            .catch((error) => {
-                console.log(error);
-                // An error happened.
-            });
+    const register = async (email, password) => {
+        try{
+            const result = await app.auth().createUserWithEmailAndPassword(email, password)
+            data.user.set(result);
+        }
+        catch(error){ 
+            throw Error(error.message) 
+        }
+    }
+
+    const doLogin = async (email, password) => {
+        try{
+            const result = await app.auth().signInWithEmailAndPassword(email, password);
+            data.user.set(result);
+        }
+        catch(error){ 
+            throw Error(error.message) 
+        }   
+    }
+
+    const signOut = async () => {
+        try{
+            await app.auth().signOut()
+            data.user.set(null);
+        }
+        catch(error){
+            throw Error(error.message);
+        }
     }
 
     const setNote = (noteID, userID) => {
@@ -77,7 +93,9 @@ export const FireProvider = ({children}) => {
             set: setNote,
             get: getNotes,
             login: doLogin,
-            logout: signOut
+            logout: signOut,
+            register: register,
+            changePassword: changePassword
         }
     });
     return(
