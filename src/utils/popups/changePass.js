@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import Button from '../../components/button/Button';
+import Button from '../../components/Button';
 import { FireContext } from '../../contexts/FireContext';
 import MessagePopUp from './message';
 

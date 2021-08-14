@@ -8,5 +8,6 @@ export default app.initializeApp({
     storageBucket: "vernal-layout-313917.appspot.com",
     messagingSenderId: "105183549876",
     appId: "1:105183549876:web:fc46c0043002ee7a26fae1",
-    measurementId: "G-YC3G77S355"
+    measurementId: "G-YC3G77S355",
+    databaseURL: "https://vernal-layout-313917-default-rtdb.firebaseio.com/"
 });

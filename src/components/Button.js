@@ -1,21 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-export default ( props ) => {
+/**
+ * Elemento boton comun
+ * @param {{imgSrc: String, btnText: String, action: Function, addClass: String}} props 
+ * @returns {JSX.Element} Boton
+ */
+const Button = ( props ) => {
     const {imgSrc = null, btnText = "", action = () => {}, addClass = ""} = props;
     const placeholder = process.env.REACT_APP_PLACEHOLDER;
     
-    const [working, setWorking] = useState(false);
     const btnAction = () => {
-        setWorking(true);
         action();
-        setWorking(false);
     }
 
     const classString = `${addClass} ${btnText? "button": 'icon-button'}`
     return(
-        <button className={classString} onClick={btnAction} disabled={working}>
+        <button className={classString} onClick={btnAction}>
             <img src={imgSrc? imgSrc: placeholder} alt=""/>
             {btnText}
         </button>
     )
 }
+
+export default Button;

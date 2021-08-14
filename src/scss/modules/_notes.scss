@@ -1,0 +1,35 @@
+
+
+.notes-grid{
+    width: 75%;
+    height: fit-content;
+    padding: 2rem;
+    padding-top: 2.5rem;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 30%);
+    gap: 1.5rem;
+
+    >button{
+        margin: 1.5rem auto;
+    }
+    >h3{
+        margin: auto;
+        color: white;
+    }
+}
+.note{
+    background: white;
+    width: 100%;
+    min-height: 7rem;
+    height: fit-content;
+    padding: 1rem;
+
+    border-radius: 0.25rem;
+    p{
+
+    }
+    h3{
+
+    }
+}

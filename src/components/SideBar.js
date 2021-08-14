@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { FireContext } from '../../contexts/FireContext';
-import MessagePopUp from '../../utils/popups/message';
-import Button from '../button/Button';
+import { FireContext } from '../contexts/FireContext';
+import MessagePopUp from '../utils/popups/message';
+import Button from './Button';
 
-export default () => {
+const SideBar = () => {
     const firebase = useContext(FireContext);
 
     const [showM, setShowM] = useState(false);
@@ -29,3 +29,5 @@ export default () => {
         </div>
     )
 }
+
+export default SideBar;

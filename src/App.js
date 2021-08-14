@@ -1,31 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react';
-import SideBar from './components/sidebar/SideBar';
+import React, { useContext, useState } from 'react';
+import SideBar from './components/SideBar';
 import { DataContext } from './contexts/DataContext';
-import {FireContext} from './contexts/FireContext';
 import NoteView from './views/NoteView';
-import LoginView from './views/login/LoginView';
-import './style.css';
+import LoginView from './views/LoginView';
+import './scss/style.css';
 
 function App() {
-	const firebase = useContext(FireContext);
 	const data = useContext(DataContext);
 
+	const [views, setView] = useState("notes");
+
 	const RouteSwitch = () => {
-		switch(true){
-			case(Boolean(data.user.value)):
-				return <NoteView />;
-			default:
-				return <LoginView/>;
+		if(Boolean(data.user.value)){
+			switch(true){
+				default:
+					return <NoteView />;				
+			}
+		}else{
+			return <LoginView/>;
 		}
 	}
 
 	return (
 		<div className="App">
 			{data.user.value
-				? <SideBar/>
+				? <SideBar changeView={setView}/>
 				: null}
 
-			<RouteSwitch />
+			{RouteSwitch()}
 		</div>
 	);
 }

@@ -1,10 +1,10 @@
-import React, { Fragment, useContext, useState } from 'react';
-import Button from '../../components/button/Button';
-import RegisterPopUp from '../../utils/popups/register';
-import ChangePassword from '../../utils/popups/changePass';
-import { FireContext } from '../../contexts/FireContext';
+import React, { useContext, useState } from 'react';
+import Button from '../components/Button';
+import RegisterPopUp from '../utils/popups/register';
+import ChangePassword from '../utils/popups/changePass';
+import { FireContext } from '../contexts/FireContext';
 
-export default () => {
+const LoginView = () => {
     const firebase = useContext(FireContext);
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -59,3 +59,5 @@ export default () => {
         </div>
     );
 }
+
+export default LoginView;

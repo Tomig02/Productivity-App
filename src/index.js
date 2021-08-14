@@ -8,11 +8,11 @@ dotenv.config()
 
 ReactDOM.render(
 	<React.StrictMode>
-		<DataProvider>
-			<FireProvider>
+		<FireProvider>
+			<DataProvider>
 				<App />
-			</FireProvider>
-		</DataProvider>
+			</DataProvider>
+		</FireProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

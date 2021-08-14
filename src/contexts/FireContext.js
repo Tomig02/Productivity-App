@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import {createContext, useContext, useState} from 'react';
 import {DataContext} from './DataContext';
 import app from '../utils/fireInit';
 import 'firebase/database';
@@ -8,24 +8,6 @@ export const FireContext = createContext(null);
 
 export const FireProvider = ({children}) => {
     const data = useContext(DataContext);
-
-    /* ---------------------------------------------------------------------
-    *                      FIREBASE LOGIN DEL USUARIO
-    *  ---------------------------------------------------------------------
-    */
-
-    if( Boolean(app.auth().currentUser) ){
-        data.user.set(app.auth().currentUser.uid);
-    }
-    app.auth().onAuthStateChanged((user) => {
-        // User is signed in
-        if (user) {
-            data.user.set(user.uid);
-        } 
-        else {
-            data.user.set(null);
-        }
-    });
 
     /* ---------------------------------------------------------------------
     *               FUNCIONES PARA INTERACTUAR CON FIREBASE
@@ -71,19 +53,20 @@ export const FireProvider = ({children}) => {
         }
     }
 
-    const setNote = (noteID, userID) => {
-        app.database
-            .ref(`notes/${userID}/${noteID}`)
+    const setNote = (userID) => {
+        app.database()
+            .ref(`notes/${userID}`)
             .set(data.notes.value);
     }
-    const getNotes = (userID) => {
-        app.database
-            .ref(`posts/${userID}`)
-            .on('value', (snapshot) => {
-                const data = snapshot.val();
-                data.notes.set(data);
-            }
-        );
+    const getNotes = async (userID) => {
+        try{
+            const snapshot = await app.database().ref(`notes/${userID}`).get()
+            const data = snapshot.val();
+            return data.filter(elem => { return Boolean(elem) });
+        }
+        catch(error){
+            console.log(error.message);
+        }
     }
 
     const [firebase, setFirebase] = useState({
