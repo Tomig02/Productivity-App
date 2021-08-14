@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Button from '../components/Button';
+import Note from '../components/Note';
 import { DataContext } from '../contexts/DataContext';
 import { FireContext } from '../contexts/FireContext';
 
@@ -15,12 +16,9 @@ const NoteView = () => {
     }, []);
 
     const showNotes = () => {
-        const comps = data.notes.value.map( note => {
+        const comps = data.notes.value.map( (note, index) => {
             return (
-                <div className="note" key={Math.random() * 10000}>
-                    <h3>{note.title}</h3>
-                    <p>{note.content}</p>
-                </div>
+                <Note id={index} title={note.title} content={note.content} />      
             ); 
         });
 
@@ -30,7 +28,7 @@ const NoteView = () => {
     return(
         <div className="notes-grid">
             {showNotes()}
-            <Button/>
+            <Button imgSrc="bx bxs-plus-square"/>
         </div>
     );  
 }

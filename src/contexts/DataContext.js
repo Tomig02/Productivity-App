@@ -18,7 +18,6 @@ export const DataProvider = ({children}) => {
                 .then(result => { setNotes(result) });
         }
         firebase.app.auth().onAuthStateChanged( async (user) => {
-            // User is signed in
             if (user) {
                 setUser(user.uid);
                 setNotes( await firebase.api.get(user.uid));
@@ -28,11 +27,13 @@ export const DataProvider = ({children}) => {
                 setNotes([]);
             }
         });
-
-        window.addEventListener('beforeunload', () => {
-            firebase.api.set(notes);
-        });
     }, []);
+
+    useEffect(() => {
+        if(notes.length > 0){
+            firebase.api.set(user, notes);
+        }
+    }, [notes]);
 
     return(
         <DataContext.Provider value={{

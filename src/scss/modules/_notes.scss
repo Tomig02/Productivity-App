@@ -7,8 +7,10 @@
     padding-top: 2.5rem;
     
     display: grid;
-    grid-template-columns: repeat(auto-fit, 30%);
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     gap: 1.5rem;
+
+    justify-content: center;
 
     >button{
         margin: 1.5rem auto;
@@ -21,9 +23,9 @@
 .note{
     background: white;
     width: 100%;
-    min-height: 7rem;
     height: fit-content;
     padding: 1rem;
+    padding-bottom: 0.2rem;
 
     border-radius: 0.25rem;
     p{
@@ -31,5 +33,32 @@
     }
     h3{
 
+    }
+    textarea{
+        width: 100%;
+        min-height: 3rem;
+        resize: none;
+    }
+
+    .btn-row{
+        width: 100%;
+        margin-top: 1rem;
+
+        display: flex;
+        justify-content: flex-end;
+
+        button{
+            width: 2rem;
+            height: 2rem;
+            
+            margin-right: 0.5rem;
+            &:last-of-type{
+                margin: 0;
+            }
+
+            i{
+                font-size: 1.3rem;
+            }
+        }
     }
 }

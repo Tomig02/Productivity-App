@@ -21,9 +21,9 @@ const SideBar = () => {
     return(
         <div className="sidebar-panel">
             <h1>Logo</h1>
-            <Button imgSrc="" btnText="Notes"/>
-            <Button imgSrc="" btnText="Help" />
-            <Button imgSrc="" btnText="Logout" action={handleLogout}/>
+            <Button imgSrc="bx bxs-notepad" btnText="Notes"/>
+            <Button imgSrc="bx bxs-help-circle" btnText="Help" />
+            <Button imgSrc="bx bxs-log-out" btnText="Logout" action={handleLogout}/>
 
             {showM? <MessagePopUp message={message} isOpen={setShowM}/>: null}
         </div>

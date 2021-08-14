@@ -21,15 +21,18 @@ button{
     text-transform: uppercase;
 
     //align
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    div{
+        width: 50%;
+        margin: auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
     //icon
-    img{
-        margin-right: 1rem;
-        width: $btn-icon-size;
-        height: $btn-icon-size;
+    i{
+        font-size: $btn-icon-size;
         border: none;
         outline: none;
     }
@@ -50,9 +53,14 @@ button{
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
+    justify-content: center;
 
-    img{
+    div{
+        justify-content: center;
+    }
+    i{
         margin: 0;
         border-radius: 50%;
+        font-size: 2rem;
     }
 }

@@ -41,7 +41,7 @@ const LoginView = () => {
 
                 <small>{errorMessage}</small>
 
-                <Button imgSrc="" btnText="Login"/>
+                <Button imgSrc="bx bxs-log-in" btnText="Login"/>
             </form>
             <div className="login-panel">
                 <div className="row">

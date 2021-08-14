@@ -7,7 +7,6 @@ import React from 'react';
  */
 const Button = ( props ) => {
     const {imgSrc = null, btnText = "", action = () => {}, addClass = ""} = props;
-    const placeholder = process.env.REACT_APP_PLACEHOLDER;
     
     const btnAction = () => {
         action();
@@ -16,8 +15,10 @@ const Button = ( props ) => {
     const classString = `${addClass} ${btnText? "button": 'icon-button'}`
     return(
         <button className={classString} onClick={btnAction}>
-            <img src={imgSrc? imgSrc: placeholder} alt=""/>
-            {btnText}
+            <div>
+                {imgSrc? <i className={imgSrc}></i>: null}
+                {btnText}
+            </div>
         </button>
     )
 }

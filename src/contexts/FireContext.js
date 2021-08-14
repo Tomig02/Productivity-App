@@ -53,10 +53,11 @@ export const FireProvider = ({children}) => {
         }
     }
 
-    const setNote = (userID) => {
+    const setNote = (userID, notes) => {
+        console.log(userID, notes);
         app.database()
             .ref(`notes/${userID}`)
-            .set(data.notes.value);
+            .set(notes);
     }
     const getNotes = async (userID) => {
         try{
