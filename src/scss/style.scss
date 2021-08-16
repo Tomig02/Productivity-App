@@ -10,6 +10,11 @@ $error-msg: rgb(218, 58, 58);
     margin: 0;
     padding: 0;    
 }
+.App{
+    display: flex;
+    justify-content: flex-end;
+}
+
 body{
     min-height: 100vh;
     background: $main-bg;
@@ -17,11 +22,7 @@ body{
 }
 
 @import './modules/button', './modules/sidebar', './modules/loginview', 
-'./modules/notes', './modules/popup';
-
-.App{
-    display: flex;
-}
+'./modules/notes', './modules/popup', './modules/help';
 
 input{
     width: 100%;

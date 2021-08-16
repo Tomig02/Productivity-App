@@ -1,0 +1,46 @@
+
+.help-view{
+    width: 75%;
+    padding: 2rem;
+}
+.collapse-btn{
+    width: 100%; 
+    margin-top: 1.5rem;
+    
+    background: none;
+    color: white;
+    border: 1px solid white;
+    border-radius: 0;
+    
+    font-size: 0.8rem;
+    letter-spacing: 0.08rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    i{
+        color: white;
+        font-size: 1rem;
+    }
+
+    &:hover{
+        border: 1px solid $border-color;
+        transform: none;
+        box-shadow: none;
+        filter: brightness(1.1);
+    }
+}
+
+.collapse-content{
+    padding: 1rem;
+    margin: 1rem;
+
+    color: white;
+    word-wrap: break-word;
+    border: 1px solid white;
+    border-radius: 0.5rem;
+}
+.collapse-active{
+    border: 1px solid $border-color;
+}

@@ -21,8 +21,7 @@ const NoteView = () => {
             return (
                 <Note 
                     id={index} 
-                    title={note.title} 
-                    content={note.content} 
+                    {...note}
                     startEdit={newNote === index? true: false}    
                 />      
             ); 
@@ -39,7 +38,8 @@ const NoteView = () => {
     return(
         <div className="notes-grid">
             {showNotes()}
-            <Button imgSrc="bx bxs-plus-square" action={createNewNote}/>
+            <Button className="floating-btn" btnText="Add note" 
+                imgSrc="bx bxs-plus-square" action={createNewNote}/>
         </div>
     );  
 }

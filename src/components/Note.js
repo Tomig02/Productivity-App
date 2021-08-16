@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useContext, useState } from 'react';
-import { Fragment } from 'react';
+import React, { Fragment, useEffect, useContext, useState } from 'react';
+import CustomControlTextArea from './TextArea';
 import { DataContext } from '../contexts/DataContext';
 import Button from './Button';
 
@@ -17,8 +17,10 @@ const Note = (props) => {
     const [isEditing, setIsEditing] = useState(startEdit);
     const [colorChange, setColorChange] = useState(false);
     const [BG, setBG] = useState(data.notes.value[id].color || colors.white);
+    
     const [title, setTitle] = useState(props.title);
     const [content, setContent] = useState(props.content);
+    const [image, setImage] = useState(props.image || null);
 
     const [memory, setMemory] = useState(false);
     useEffect(() => {
@@ -28,7 +30,7 @@ const Note = (props) => {
         else{
             if(memory){
                 const array = data.notes.value;
-                array[id] = {color: BG, title: title, content: content};
+                array[id] = {image: image, color: BG, title: title, content: content};
                 data.notes.set([...array]);
                 
                 setMemory(false);
@@ -62,52 +64,55 @@ const Note = (props) => {
         })
     }
 
+    const values = {title: title, image: image, content: content}
+    const setValues = {setTitle: setTitle, setContent: setContent, setImage: setImage}
     return(
         <div className="note" style={{background: BG}}>
             {isEditing
-                ? <Fragment>
-                    <CustomControlTextArea value={title} setValue={setTitle} />
-                    <CustomControlTextArea value={content} setValue={setContent} />
-                </Fragment> 
-                : <Fragment>
-                    <h3>{title}</h3>
-                    <p>{content}</p>
-                </Fragment>
+                ? <EditNote {...values} {...setValues}/>
+                : <ShowNote {...values}/>
             }
 
             <div className="btn-row">
                 {isEditing
-                ? <Fragment>
-                    <Button imgSrc="bx bxs-palette" action={toggleColor}/>
-                </Fragment>
-                : null
-                }
+                ? <Button imgSrc="bx bxs-palette" action={toggleColor}/>
+                : null}
+
                 <Button imgSrc="bx bxs-trash" action={deleteNote} />
                 <Button imgSrc={isEditing? "bx bxs-save": "bx bxs-pencil"} action={toggleEditing} />
             </div>
 
-            {isEditing && colorChange? <div className="color-display">
-                {showColors()}
-            </div>: null}
+            {isEditing && colorChange
+                ? <div className="color-display">
+                    {showColors()}
+                </div>
+                : null}
         </div>
     )
 }
 
-const CustomControlTextArea = ({value, setValue}) => {
-    const textareaRef = useRef(null);
-
-    useEffect(() => {
-        textareaRef.current.style.height = "0px";
-        const scrollHeight = textareaRef.current.scrollHeight;
-        textareaRef.current.style.height = (scrollHeight + 2) + "px";
-    }, [value]);
-
-    return ( 
-        <textarea ref={textareaRef}
-            value={value}
-            onChange={ e => {setValue(e.target.value)}}
-        />
-    );
+const EditNote = ({title, image, content, setTitle, setContent, setImage}) => {
+    return (
+        <Fragment>
+            <small>Title</small>
+            <CustomControlTextArea value={title} setValue={setTitle} />
+            <small>Content</small>
+            <CustomControlTextArea value={content} setValue={setContent} />
+            <small>Image link</small>
+            <CustomControlTextArea value={image} setValue={setImage} />
+        </Fragment>
+    )
 }
+const ShowNote = ({title, image, content}) => {
+    return (
+        <Fragment>
+            <h3>{title}</h3>
+            <p>{content}</p>
+            {image? <img src={image} alt=""/>: null}
+        </Fragment>
+    )
+}
+
+
 
 export default Note;
