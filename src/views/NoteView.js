@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Note from '../components/Note';
 import { DataContext } from '../contexts/DataContext';
@@ -15,20 +15,31 @@ const NoteView = () => {
         }
     }, []);
 
+    const [newNote, setNewNote] = useState(-1);
     const showNotes = () => {
         const comps = data.notes.value.map( (note, index) => {
             return (
-                <Note id={index} title={note.title} content={note.content} />      
+                <Note 
+                    id={index} 
+                    title={note.title} 
+                    content={note.content} 
+                    startEdit={newNote === index? true: false}    
+                />      
             ); 
         });
 
         return comps.length > 0? comps: <h3>You dont have any notes</h3>
     }
+    const createNewNote = () => {
+        const newNote = {title: "New note", content: "Content", color: null};
+        data.notes.set([...data.notes.value, newNote]);
+        setNewNote(data.notes.value.length);
+    }
 
     return(
         <div className="notes-grid">
             {showNotes()}
-            <Button imgSrc="bx bxs-plus-square"/>
+            <Button imgSrc="bx bxs-plus-square" action={createNewNote}/>
         </div>
     );  
 }

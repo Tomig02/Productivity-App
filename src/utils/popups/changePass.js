@@ -34,7 +34,7 @@ const ChangePassword = ({isOpen}) => {
                 <small>{error}</small>
 
                 <Button imgSrc="" btnText="Change Password"/>
-                <Button imgSrc="" addClass="close-btn" action={closePopUp}/>
+                <Button imgSrc="" className="close-btn" action={closePopUp}/>
             </form>
 
             {showMessage? <MessagePopUp message="Email sent" isOpen={setShowMessage}/>: null}

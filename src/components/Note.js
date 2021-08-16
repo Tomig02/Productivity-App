@@ -5,15 +5,20 @@ import Button from './Button';
 
 const Note = (props) => {
     const data = useContext(DataContext);
-    const {id} = props;
+    const {id, startEdit = false} = props;
 
-    const [isEditing, setIsEditing] = useState(false);
+    const colors = {
+        white: "#FaFaFa",
+        pink: "#ff65a3",
+        yellow: "#fff740",
+        blue: "#7afcff"
+    }
+
+    const [isEditing, setIsEditing] = useState(startEdit);
+    const [colorChange, setColorChange] = useState(false);
+    const [BG, setBG] = useState(data.notes.value[id].color || colors.white);
     const [title, setTitle] = useState(props.title);
     const [content, setContent] = useState(props.content);
-
-    const toggleEditing = () => {
-        setIsEditing(!isEditing);
-    }
 
     const [memory, setMemory] = useState(false);
     useEffect(() => {
@@ -22,10 +27,8 @@ const Note = (props) => {
         }
         else{
             if(memory){
-                const newNote = {title: title, content: content};
                 const array = data.notes.value;
-                
-                array[id] = newNote;
+                array[id] = {color: BG, title: title, content: content};
                 data.notes.set([...array]);
                 
                 setMemory(false);
@@ -33,8 +36,34 @@ const Note = (props) => {
         }
     }, [isEditing]);
 
+    const setBackground = (hex) => {
+        setBG(hex);
+    }
+    const toggleEditing = () => {
+        setIsEditing(!isEditing);
+    }
+    const toggleColor = () => {
+        setColorChange(!colorChange);
+    }
+
+    const deleteNote = () => {
+        const dataArr = data.notes.value;
+        dataArr.splice(id, 1);
+        data.notes.set([...dataArr]);
+    }
+
+    const showColors = () => {
+        return Object.values(colors).map( (hex) => {
+            return <Button 
+                action={() => {setBackground(hex)}} 
+                className="color-btn" 
+                style={{background: hex}}
+            />
+        })
+    }
+
     return(
-        <div className="note">
+        <div className="note" style={{background: BG}}>
             {isEditing
                 ? <Fragment>
                     <CustomControlTextArea value={title} setValue={setTitle} />
@@ -49,12 +78,17 @@ const Note = (props) => {
             <div className="btn-row">
                 {isEditing
                 ? <Fragment>
-                    <Button imgSrc="bx bxs-palette" />
+                    <Button imgSrc="bx bxs-palette" action={toggleColor}/>
                 </Fragment>
                 : null
                 }
+                <Button imgSrc="bx bxs-trash" action={deleteNote} />
                 <Button imgSrc={isEditing? "bx bxs-save": "bx bxs-pencil"} action={toggleEditing} />
             </div>
+
+            {isEditing && colorChange? <div className="color-display">
+                {showColors()}
+            </div>: null}
         </div>
     )
 }

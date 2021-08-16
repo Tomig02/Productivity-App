@@ -48,7 +48,7 @@ const RegisterPopUp = ({isOpen}) => {
                 <small>{error}</small>
 
                 <Button imgSrc="" btnText="Register"/>
-                <Button imgSrc="" addClass="close-btn" action={closePopUp}/>
+                <Button imgSrc="" className="close-btn" action={closePopUp}/>
             </form>
 
             {showMessage? <MessagePopUp 
