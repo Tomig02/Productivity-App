@@ -7,43 +7,58 @@ export const DataProvider = ({children}) => {
     const firebase = useContext(FireContext);
 
     const [notes, setNotes] = useState([]);
-    const [user, setUser] = useState(null);
+    const [week, setWeek] = useState({});
+    const [user, setUser] = useState(undefined);
 
     useEffect(() => {
         if( Boolean(firebase.app.auth().currentUser) ){
             const uid = firebase.app.auth().currentUser.uid;
-            setUser(uid);
             
             firebase.api.get(uid)
                 .then(result => { setNotes(result) });
+            
+            setUser(uid);
         }
+        else{
+            setUser("noUser");
+        }
+
         firebase.app.auth().onAuthStateChanged( async (user) => {
             if (user) {
                 setUser(user.uid);
-                setNotes( await firebase.api.get(user.uid));
+                setNotes( await firebase.api.getNotes(user.uid));
+                setWeek( await firebase.api.getWeek(user.uid));
             } 
             else {
                 setUser(null);
-                setNotes([]);
             }
         });
     }, []);
 
     useEffect(() => {
         if(notes.length > 0){
-            firebase.api.set(user, notes);
+            firebase.api.setNote(user, notes);
         }
     }, [notes]);
+    useEffect(() => {
+        if(Object.keys(week).length > 0){
+            firebase.api.setWeek(user, week);
+        }
+    }, [week]);
 
     return(
         <DataContext.Provider value={{
-            notes:{
+            notes: {
                 set: setNotes,
                 value: notes
             },
-            user:{
+            user: {
                 set: setUser,
                 value: user
+            },
+            week: {
+                set: setWeek,
+                value: week
             }
         }}>
             {children}

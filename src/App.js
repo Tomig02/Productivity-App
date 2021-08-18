@@ -4,6 +4,7 @@ import { DataContext } from './contexts/DataContext';
 import NoteView from './views/NoteView';
 import HelpView from './views/HelpView';
 import LoginView from './views/LoginView';
+import WeekView from './views/WeekView';
 import './scss/style.css';
 
 function App() {
@@ -12,25 +13,32 @@ function App() {
 	const [views, setView] = useState("notes");
 
 	const RouteSwitch = () => {
-		if(Boolean(data.user.value)){
-			switch(true){
-				case(views === "help"):
-					return <HelpView />;
-				default:
-					return <NoteView />;				
-			}
-		}else{
-			return <LoginView/>;
+		switch(true){
+			case(data.user.value != undefined && views === "help"):
+				return [<SideBar changeView={setView}/>, <HelpView />];
+			case(data.user.value != undefined && views === "notes"):
+				return [<SideBar changeView={setView}/>, <NoteView />];
+			case(data.user.value != undefined && views === "mail"):
+				return [<SideBar changeView={setView}/>, <WeekView />]
+			case(data.user.value === "noUser"):
+				return <LoginView/> 
+			default:
+				return <Loading />	
 		}
 	}
 
 	return (
 		<div className="App">
-			{data.user.value
-				? <SideBar changeView={setView}/>
-				: null}
-
 			{RouteSwitch()}
+		</div>
+	);
+}
+
+const Loading = () => {
+	return(
+		<div className="loading">
+			<img src="https://media.giphy.com/media/Vk7VKS50xcSC4/giphy.gif" alt=""/>
+			<p>Loading...</p>
 		</div>
 	);
 }

@@ -25,7 +25,9 @@ export const FireProvider = ({children}) => {
 
     const register = async (email, password) => {
         try{
-            const result = await app.auth().createUserWithEmailAndPassword(email, password)
+            const result = await app.auth().createUserWithEmailAndPassword(email, password);
+            app.database().ref(`notes/${result}`).set([]);
+            app.database().ref(`week/${result}`).set({});
             data.user.set(result);
         }
         catch(error){ 
@@ -54,7 +56,6 @@ export const FireProvider = ({children}) => {
     }
 
     const setNote = (userID, notes) => {
-        console.log(userID, notes);
         app.database()
             .ref(`notes/${userID}`)
             .set(notes);
@@ -63,7 +64,24 @@ export const FireProvider = ({children}) => {
         try{
             const snapshot = await app.database().ref(`notes/${userID}`).get()
             const data = snapshot.val();
-            return data.filter(elem => { return Boolean(elem) });
+            return data;
+        }
+        catch(error){
+            console.log(error.message);
+        }
+    }
+
+    const setWeek = (userID, week) => {
+        app.database()
+            .ref(`week/${userID}`)
+            .set(week);
+    }
+    const getWeek = async (userID) => {
+        try{
+            const snapshot = await app.database().ref(`week/${userID}`).get()
+            const data = snapshot.val();
+            
+            return data;
         }
         catch(error){
             console.log(error.message);
@@ -74,8 +92,10 @@ export const FireProvider = ({children}) => {
         app: app,
         database: app.database(),
         api: {
-            set: setNote,
-            get: getNotes,
+            setNote: setNote,
+            getNotes: getNotes,
+            setWeek: setWeek,
+            getWeek: getWeek,
             login: doLogin,
             logout: signOut,
             register: register,

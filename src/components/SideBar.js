@@ -22,6 +22,7 @@ const SideBar = ({changeView}) => {
         <div className="sidebar-panel">
             <h1>Logo</h1>
             <Button imgSrc="bx bxs-notepad" btnText="Notes" action={() => {changeView("notes")}}/>
+            <Button imgSrc="bx bxs-message" btnText="Week" action={() => {changeView("mail")}}/>
             <Button imgSrc="bx bxs-help-circle" btnText="Help" action={() => {changeView("help")}}/>
             <Button imgSrc="bx bxs-log-out" btnText="Logout" action={handleLogout}/>
 
