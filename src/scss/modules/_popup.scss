@@ -8,7 +8,10 @@
     justify-content: center;
 
     background: rgba(#000000, 0.85);
-    position: absolute;
+    position: fixed;
+
+    left: 0;
+    top: 0;
 }
 .popup-panel{
     padding: 2rem;
