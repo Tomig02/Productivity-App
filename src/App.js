@@ -20,7 +20,7 @@ function App() {
 				return [<SideBar changeView={setView}/>, <NoteView />];
 			case(data.user.value != undefined && views === "mail"):
 				return [<SideBar changeView={setView}/>, <WeekView />]
-			case(data.user.value === "noUser"):
+			case(data.user.value === undefined):
 				return <LoginView/> 
 			default:
 				return <Loading />	

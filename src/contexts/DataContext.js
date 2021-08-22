@@ -14,13 +14,14 @@ export const DataProvider = ({children}) => {
         if( Boolean(firebase.app.auth().currentUser) ){
             const uid = firebase.app.auth().currentUser.uid;
             
-            firebase.api.get(uid)
-                .then(result => { setNotes(result) });
-            
-            setUser(uid);
+            firebase.api.getNotes(uid)
+                .then(result => { 
+                    setUser(uid);
+                    setNotes(result); 
+                });
         }
         else{
-            setUser("noUser");
+            setUser(undefined);
         }
 
         firebase.app.auth().onAuthStateChanged( async (user) => {
@@ -30,7 +31,7 @@ export const DataProvider = ({children}) => {
                 setWeek( await firebase.api.getWeek(user.uid));
             } 
             else {
-                setUser(null);
+                setUser(undefined);
             }
         });
     }, []);
