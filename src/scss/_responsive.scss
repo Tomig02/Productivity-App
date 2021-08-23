@@ -1,0 +1,16 @@
+
+@media(max-width: 900px) {
+    .help-view, .week, .notes-grid{
+        width: 100vw;
+    }
+    .week-days{
+        grid-template-columns: repeat(1, 1fr);
+        align-items: center;
+    }
+}
+
+html{
+    font-size: 0.8em;
+    @media(min-width: 700px) { font-size: 0.75em; }
+    @media(min-width: 1000px) { font-size: 0.9em; }
+}

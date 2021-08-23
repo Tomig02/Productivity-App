@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from 'react';
+import {createContext, useContext} from 'react';
 import {DataContext} from './DataContext';
 import app from '../utils/fireInit';
 import 'firebase/database';
@@ -88,7 +88,7 @@ export const FireProvider = ({children}) => {
         }
     }
 
-    const [firebase, setFirebase] = useState({
+    const firebase = {
         app: app,
         database: app.database(),
         api: {
@@ -101,7 +101,7 @@ export const FireProvider = ({children}) => {
             register: register,
             changePassword: changePassword
         }
-    });
+    }
     return(
         <FireContext.Provider value={firebase}>
             {children}

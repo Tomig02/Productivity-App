@@ -9,8 +9,10 @@ export const DataProvider = ({children}) => {
     const [notes, setNotes] = useState([]);
     const [week, setWeek] = useState({});
     const [user, setUser] = useState(undefined);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true);
         if( Boolean(firebase.app.auth().currentUser) ){
             const uid = firebase.app.auth().currentUser.uid;
             
@@ -34,6 +36,8 @@ export const DataProvider = ({children}) => {
                 setUser(undefined);
             }
         });
+
+        setIsLoading(false);
     }, []);
 
     useEffect(() => {
@@ -60,7 +64,8 @@ export const DataProvider = ({children}) => {
             week: {
                 set: setWeek,
                 value: week
-            }
+            },
+            loading: isLoading
         }}>
             {children}
         </DataContext.Provider>

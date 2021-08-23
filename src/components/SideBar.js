@@ -3,7 +3,7 @@ import { FireContext } from '../contexts/FireContext';
 import MessagePopUp from '../utils/popups/message';
 import Button from './Button';
 
-const SideBar = ({changeView}) => {
+const SideBar = ({closeFunc, changeView}) => {
     const firebase = useContext(FireContext);
 
     const [showM, setShowM] = useState(false);
@@ -25,6 +25,7 @@ const SideBar = ({changeView}) => {
             <Button imgSrc="bx bxs-message" btnText="Week" action={() => {changeView("mail")}}/>
             <Button imgSrc="bx bxs-help-circle" btnText="Help" action={() => {changeView("help")}}/>
             <Button imgSrc="bx bxs-log-out" btnText="Logout" action={handleLogout}/>
+            {/* <Button imgSrc="" className='burger' action={closeFunc}/> */}
 
             {showM? <MessagePopUp message={message} isOpen={setShowM}/>: null}
         </div>

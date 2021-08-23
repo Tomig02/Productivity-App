@@ -61,7 +61,7 @@ const AddPanel = ({day, isOpen}) => {
         <div className="popup-bg">
             <form className="add-panel popup-panel" onSubmit={handleSubmit}>
                 <button type="button" onClick={handleClose} className="close-btn">
-                    <i className="bx bxs-minus-circle"/>
+                    <i className="bx bx-window-close"/>
                 </button>
                 
                 <input type="text" name="text" required maxLength={150}/>

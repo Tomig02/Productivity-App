@@ -22,8 +22,22 @@ body{
 }
 
 @import './modules/button', './modules/popup', './modules/sidebar', './modules/loginview', 
-'./modules/notes', './modules/help', './modules/week';
+'./modules/notes', './modules/help', './modules/week', './responsive';
 
+.burger{
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin: 0.5rem;
+
+    width: 2rem;
+    height: 2rem;
+    z-index: 100;
+
+    i{
+        font-size: 1.5rem;
+    }
+}
 .loading{
     display: flex;
     flex-direction: column;

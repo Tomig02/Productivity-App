@@ -13,21 +13,26 @@ const NoteView = () => {
             firebase.api.get()
                 .then(result => { data.notes.set(result); })
         }
+    // eslint-disable-next-line
     }, []);
 
     const [newNote, setNewNote] = useState(-1);
     const showNotes = () => {
-        const comps = data.notes.value.map( (note, index) => {
-            return (
-                <Note 
-                    id={index} 
-                    {...note}
-                    startEdit={newNote === index? true: false}    
-                />      
-            ); 
-        });
-
-        return comps.length > 0? comps: <h3>You dont have any notes</h3>
+        if(data.notes.value){
+            const comps = data.notes.value.map( (note, index) => {
+                return (
+                    <Note 
+                        id={index} 
+                        {...note}
+                        startEdit={newNote === index? true: false}    
+                    />      
+                ); 
+            });
+            return comps.length > 0? comps: <h3>You dont have any notes</h3>
+        }else{
+            return <h3>Connection error when fetching data from the server</h3>
+        }
+        
     }
     const createNewNote = () => {
         const newNote = {title: "New note", content: "Content", color: null};

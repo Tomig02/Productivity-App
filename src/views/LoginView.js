@@ -18,7 +18,7 @@ const LoginView = () => {
         try{
             await firebase.api.login(dataF.get('mail'), dataF.get("pass"));
         }catch(err){
-            setErrorMessage(err)
+            setErrorMessage(err.message);
         }
 	}
     const handleRegister = () => {
