@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import {createContext, useCallback, useContext, useEffect, useState} from 'react';
 import { FireContext } from './FireContext';
 
 export const DataContext = createContext(null);
@@ -38,18 +38,25 @@ export const DataProvider = ({children}) => {
         });
 
         setIsLoading(false);
-    }, []);
+    }, [firebase.api, firebase.app]);
 
+    const setNotesCB = useCallback(() => {
+        firebase.api.setNote(user, notes);
+    }, [firebase.api, user, notes]);
     useEffect(() => {
         if(notes.length > 0){
-            firebase.api.setNote(user, notes);
+            setNotesCB();
         }
-    }, [notes]);
+    }, [setNotesCB, notes]);
+
+    const setWeekCB = useCallback(() => {
+        firebase.api.setWeek(user, week);
+    }, [firebase.api, user, week]);
     useEffect(() => {
         if(Object.keys(week).length > 0){
-            firebase.api.setWeek(user, week);
+            setWeekCB();
         }
-    }, [week]);
+    }, [setWeekCB, week]);
 
     return(
         <DataContext.Provider value={{

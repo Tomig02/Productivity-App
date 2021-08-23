@@ -6,7 +6,7 @@ const ToDo = ({text, day, caution, time}) => {
     const {week} = useContext(DataContext);
 
     function search(value, myArray){
-        for (const i = 0; i < myArray.length; i++) {
+        for (let i = 0; i < myArray.length; i++) {
             if (myArray[i].time === value) {
                 return i;
             }

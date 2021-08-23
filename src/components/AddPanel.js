@@ -40,10 +40,11 @@ const AddPanel = ({day, isOpen}) => {
 
     const timeStamps = () => {
         const stringArr = [];
-        
-        const isUsed = week.value[day]? week.value[day].map( elem => { 
-            if(elem){ return elem.time }
-        }): [];
+
+        const isUsed = [];
+        for( const elem of week.value[day] || []){
+            if(elem){ isUsed.push(elem.time) };
+        }
 
         for(let i = 1; i < 25; i++){
             if( !isUsed.includes(i)){

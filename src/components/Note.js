@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext, useState } from 'react';
+import React, { Fragment, useEffect, useContext, useState, useCallback } from 'react';
 import CustomControlTextArea from './TextArea';
 import { DataContext } from '../contexts/DataContext';
 import Button from './Button';
@@ -22,6 +22,12 @@ const Note = (props) => {
     const [content, setContent] = useState(props.content);
     const [image, setImage] = useState(props.image || null);
 
+    const setNewNotesCB = useCallback(() => {
+        const array = data.notes.value;
+        array[id] = {image: image, color: BG, title: title, content: content};
+        data.notes.set([...array]);
+    }, [image, BG, title, content, data.notes, id]);
+
     const [memory, setMemory] = useState(false);
     useEffect(() => {
         if(isEditing){
@@ -29,14 +35,11 @@ const Note = (props) => {
         }
         else{
             if(memory){
-                const array = data.notes.value;
-                array[id] = {image: image, color: BG, title: title, content: content};
-                data.notes.set([...array]);
-                
+                setNewNotesCB();
                 setMemory(false);
             }
         }
-    }, [isEditing]);
+    }, [memory, setNewNotesCB, isEditing]);
 
     const setBackground = (hex) => {
         setBG(hex);

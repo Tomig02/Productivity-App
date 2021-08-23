@@ -45,11 +45,11 @@ function App() {
 	const RouteSwitch = () => {
 		if(!data.loading){
 			switch(true){
-				case(data.user.value != undefined && views === "help"):
+				case(data.user.value !== undefined && views === "help"):
 					return <HelpView key={2} />;
-				case(data.user.value != undefined && views === "notes"):
+				case(data.user.value !== undefined && views === "notes"):
 					return <NoteView key={2} />;
-				case(data.user.value != undefined && views === "mail"):
+				case(data.user.value !== undefined && views === "mail"):
 					return <WeekView key={2} />;
 				default:
 					return <LoginView/>;
