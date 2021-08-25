@@ -8,28 +8,42 @@ import WeekView from './views/WeekView';
 import './scss/style.css';
 import Button from './components/Button';
 
+/**
+ * elemento base de la aplicaion, decide la opcion que ve el usuario
+ * y tiene la logica del botom burguer
+ * 
+ * @returns {JSX.Element} App base 
+ */
 function App() {
 	const data = useContext(DataContext);
 
 	const [views, setView] = useState("notes");
 	const [showSide, setShowSide] = useState(false);
 
+	//---------------------------------------------------
+	// consigue y actualiza el ancho actual de la ventana
 	const [width, setWidth] = useState(window.innerWidth);
 	function handleWindowSizeChange() {
 		setWidth(window.innerWidth);
 	}
-
 	useEffect(() => {
-			window.addEventListener('resize', handleWindowSizeChange);
-			return () => {
-				window.removeEventListener('resize', handleWindowSizeChange);
-			}
-		}, []);
+		window.addEventListener('resize', handleWindowSizeChange);
+		return () => {
+			window.removeEventListener('resize', handleWindowSizeChange);
+		}
+	}, []);
+	//---------------------------------------------------
 
-	const showSidebar = () => {
+	/**
+	 * devuelve el elemento sidebar segun si el ancho de la pantalla
+	 * es mayor al valor minimo
+	 * @param {Number} minSize tamaño maximo en el que se muestra el sidebar automaticamente 
+	 * @returns {JSX.Element} Sidebar
+	 */
+	const showSidebar = (minSize) => {
 		
 		if(data.user.value){
-			if(width <= 900){
+			if(width <= minSize){
 				console.log(width);
 				if(showSide){
 					console.log("showing");
@@ -42,14 +56,19 @@ function App() {
 		}
 	}
 
-	const RouteSwitch = () => {
+	/**
+	 * elige que parte de la app se muestra al usuario
+	 * @param {String} route ruta actual
+	 * @returns {JSX.Element} Ruta actual
+	 */
+	const RouteSwitch = (route) => {
 		if(!data.loading){
 			switch(true){
-				case(data.user.value !== undefined && views === "help"):
+				case(data.user.value !== undefined && route === "help"):
 					return <HelpView key={2} />;
-				case(data.user.value !== undefined && views === "notes"):
+				case(data.user.value !== undefined && route === "notes"):
 					return <NoteView key={2} />;
-				case(data.user.value !== undefined && views === "mail"):
+				case(data.user.value !== undefined && route === "mail"):
 					return <WeekView key={2} />;
 				default:
 					return <LoginView/>;
@@ -68,12 +87,16 @@ function App() {
 				/>
 				: null
 			}
-			{showSidebar()}
-			{RouteSwitch()}
+			{showSidebar(900)}
+			{RouteSwitch(views)}
 		</div>
 	);
 }
 
+/**
+ * pantalla de carga de la app
+ * @returns {JSX.Element} Pantalla de carga 
+ */
 const Loading = () => {
 	return(
 		<div className="loading">
