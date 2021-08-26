@@ -3,10 +3,17 @@ import CustomControlTextArea from './TextArea';
 import { DataContext } from '../contexts/DataContext';
 import Button from './Button';
 
+/**
+ * elemento que muestra los datos de las notas del usuario y permite editarlas
+ * 
+ * @param {{}} props datos de la nota
+ * @returns {JSX.Element} elemento nota
+ */
 const Note = (props) => {
     const data = useContext(DataContext);
     const {id, startEdit = false} = props;
 
+    // colores para las notas
     const colors = {
         white: "#FaFaFa",
         pink: "#ff65a3",
@@ -14,20 +21,26 @@ const Note = (props) => {
         blue: "#7afcff"
     }
 
+    // estados de la nota
     const [isEditing, setIsEditing] = useState(startEdit);
     const [colorChange, setColorChange] = useState(false);
-    const [BG, setBG] = useState(data.notes.value[id].color || colors.white);
     
+    // datos de la nota 
+    const [BG, setBG] = useState(data.notes.value[id].color || colors.white);
     const [title, setTitle] = useState(props.title);
     const [content, setContent] = useState(props.content);
     const [image, setImage] = useState(props.image || null);
 
+    /**
+     * guarda los datos nuevos de la nota en el contexto de datos
+     */
     const setNewNotesCB = useCallback(() => {
         const array = data.notes.value;
         array[id] = {image: image, color: BG, title: title, content: content};
         data.notes.set([...array]);
     }, [image, BG, title, content, data.notes, id]);
 
+    // guarda las notas luego de terminar de editarla
     const [memory, setMemory] = useState(false);
     useEffect(() => {
         if(isEditing){
@@ -41,9 +54,13 @@ const Note = (props) => {
         }
     }, [memory, setNewNotesCB, isEditing]);
 
+    /** setter del color de la nota 
+     * @param {String} hex hex del color */
     const setBackground = (hex) => {
         setBG(hex);
     }
+
+    // toggles para editar los datos y el color de la nota
     const toggleEditing = () => {
         setIsEditing(!isEditing);
     }
@@ -51,12 +68,16 @@ const Note = (props) => {
         setColorChange(!colorChange);
     }
 
+    /**
+     * borra la nota actual del arreglo de notas en el contexto de datos
+     */
     const deleteNote = () => {
         const dataArr = data.notes.value;
         dataArr.splice(id, 1);
         data.notes.set([...dataArr]);
     }
 
+    /** muestra las opciones de colores para la nota */
     const showColors = () => {
         return Object.values(colors).map( (hex) => {
             return <Button 
@@ -67,6 +88,7 @@ const Note = (props) => {
         })
     }
 
+    // para que sea mas facil pasar como props
     const values = {title: title, image: image, content: content}
     const setValues = {setTitle: setTitle, setContent: setContent, setImage: setImage}
     return(
@@ -94,6 +116,14 @@ const Note = (props) => {
     )
 }
 
+/**
+ * permite editar los datos de la nota
+ * 
+ * @param {{title: String, image: String, content: String, 
+ *          setTitle: Function, setContent: Function, setImage: Function}
+ * } param0 datos y setters de la nota 
+ * @returns {JSX.Element} editor de la nota
+ */
 const EditNote = ({title, image, content, setTitle, setContent, setImage}) => {
     return (
         <Fragment>
@@ -106,6 +136,12 @@ const EditNote = ({title, image, content, setTitle, setContent, setImage}) => {
         </Fragment>
     )
 }
+
+/**
+ * muestra los datos de la nota
+ * @param {{title: String, image: String, content: String}} param0 datos de la nota
+ * @returns {JSX.Element} muestra los datos
+ */
 const ShowNote = ({title, image, content}) => {
     return (
         <Fragment>

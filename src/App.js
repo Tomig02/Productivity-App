@@ -62,19 +62,15 @@ function App() {
 	 * @returns {JSX.Element} Ruta actual
 	 */
 	const RouteSwitch = (route) => {
-		if(!data.loading){
-			switch(true){
-				case(data.user.value !== undefined && route === "help"):
-					return <HelpView key={2} />;
-				case(data.user.value !== undefined && route === "notes"):
-					return <NoteView key={2} />;
-				case(data.user.value !== undefined && route === "mail"):
-					return <WeekView key={2} />;
-				default:
-					return <LoginView/>;
-			}
-		}else{
-			return <Loading />;
+		switch(true){
+			case(data.user.value !== undefined && route === "help"):
+				return <HelpView key={2} />;
+			case(data.user.value !== undefined && route === "notes"):
+				return <NoteView key={2} />;
+			case(data.user.value !== undefined && route === "mail"):
+				return <WeekView key={2} />;
+			default:
+				return <LoginView/>;
 		}
 	}
 
@@ -89,19 +85,6 @@ function App() {
 			}
 			{showSidebar(900)}
 			{RouteSwitch(views)}
-		</div>
-	);
-}
-
-/**
- * pantalla de carga de la app
- * @returns {JSX.Element} Pantalla de carga 
- */
-const Loading = () => {
-	return(
-		<div className="loading">
-			<img src="https://media.giphy.com/media/Vk7VKS50xcSC4/giphy.gif" alt=""/>
-			<p>Loading...</p>
 		</div>
 	);
 }

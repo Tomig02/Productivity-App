@@ -3,15 +3,29 @@ import Button from '../../components/Button';
 import { FireContext } from '../../contexts/FireContext';
 import MessagePopUp from './message';
 
+/**
+ * popup donde el usuario se puede crear un usuario
+ * @param {{isOpen: Function}} param0 
+ * @returns {JSX.Element} popup para registrarse
+ */
 const RegisterPopUp = ({isOpen}) => {
     const firebase = useContext(FireContext);
 
+    // controlan el mensaje de error
     const [error, setError] = useState("");
     const [showMessage, setShowMessage] = useState(false);
 
+    /** cierra el popup */
     const closePopUp = () => {
         isOpen(false);
     }
+
+    /**
+     * recibe los datos ingresados por el usuario dentro del formulario
+     * y crea el usuario en el auth de firebase
+     * 
+     * @param {React.SyntheticEvent} event formulario
+     */
     const handleSubmit = async (event) => {
         event.preventDefault();
         const form = new FormData(event.target);
@@ -36,12 +50,15 @@ const RegisterPopUp = ({isOpen}) => {
 
     return(
         <div className="popup-bg">
+
+            {/* formulario para registrarse */}
             <form className="popup-panel" onSubmit={handleSubmit}>
                 <label htmlFor="email">Email</label>
                 <input type="text" name="email" required/>
 
                 <label htmlFor="password">Password</label>
                 <input type="text" name="password" minLength={5} required/>
+                
                 <label htmlFor="password-confirm">Confirm Password</label>
                 <input type="text" name="password-confirm" minLength={5} required/>
 
@@ -51,6 +68,7 @@ const RegisterPopUp = ({isOpen}) => {
                 <Button imgSrc="bx bx-window-close" className="close-btn" action={closePopUp}/>
             </form>
 
+            {/* popup para mensajes al usuario */}
             {showMessage? <MessagePopUp 
                 message="Registered successfully" 
                 isOpen={setShowMessage}

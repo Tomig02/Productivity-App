@@ -7,14 +7,10 @@ import React from 'react';
  */
 const Button = ( props ) => {
     const {imgSrc=null, btnText="", action=() => {}, style=null, className=""} = props;
-    
-    const btnAction = () => {
-        action();
-    }
 
     const classString = `${className} ${btnText? "button": 'icon-button'}`
     return(
-        <button style={style} className={classString} onClick={btnAction}>
+        <button style={style} className={classString} onClick={action}>
             <div>
                 {imgSrc? <i className={imgSrc}></i>: null}
                 {btnText}

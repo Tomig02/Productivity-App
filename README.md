@@ -9,4 +9,4 @@ esta es una aplicacion para ayudar a la organizacion y productividad,
 con notas y un planeador de semana. Hace uso de la autenticacion de usuarios 
 y base de datos de Firebase como BackEnd.
 
-[sitio web](https://algo.com)
+[sitio web](https://frosty-clarke-fab176.netlify.app/)

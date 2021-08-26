@@ -3,29 +3,22 @@ import { FireContext } from './FireContext';
 
 export const DataContext = createContext(null);
 
+/**
+ * es un elemento que provee los datos de la aplicacion
+ * 
+ * @param {[JSX.Element]} param0 hijos del proveedor 
+ * @returns {JSX.Element} proveedor
+ */
 export const DataProvider = ({children}) => {
     const firebase = useContext(FireContext);
 
+    // datos de la aplicacion
     const [notes, setNotes] = useState([]);
     const [week, setWeek] = useState({});
     const [user, setUser] = useState(undefined);
-    const [isLoading, setIsLoading] = useState(false);
 
+    // carga los datos al iniciar la app
     useEffect(() => {
-        setIsLoading(true);
-        if( Boolean(firebase.app.auth().currentUser) ){
-            const uid = firebase.app.auth().currentUser.uid;
-            
-            firebase.api.getNotes(uid)
-                .then(result => { 
-                    setUser(uid);
-                    setNotes(result); 
-                });
-        }
-        else{
-            setUser(undefined);
-        }
-
         firebase.app.auth().onAuthStateChanged( async (user) => {
             if (user) {
                 setUser(user.uid);
@@ -36,10 +29,9 @@ export const DataProvider = ({children}) => {
                 setUser(undefined);
             }
         });
-
-        setIsLoading(false);
     }, [firebase.api, firebase.app]);
 
+    // carga las notas en firebase al haber un cambio
     const setNotesCB = useCallback(() => {
         firebase.api.setNote(user, notes);
     }, [firebase.api, user, notes]);
@@ -49,6 +41,7 @@ export const DataProvider = ({children}) => {
         }
     }, [setNotesCB, notes]);
 
+    // carga los datos de la semana en firebase al haber un cambio
     const setWeekCB = useCallback(() => {
         firebase.api.setWeek(user, week);
     }, [firebase.api, user, week]);
@@ -71,8 +64,7 @@ export const DataProvider = ({children}) => {
             week: {
                 set: setWeek,
                 value: week
-            },
-            loading: isLoading
+            }
         }}>
             {children}
         </DataContext.Provider>

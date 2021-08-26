@@ -16,7 +16,6 @@ const AddPanel = ({day, isOpen}) => {
         const newToDos = [];
         for( const time of selected){
             newToDos.push({
-                day: day, 
                 text: text,
                 caution: caution, 
                 time: time
